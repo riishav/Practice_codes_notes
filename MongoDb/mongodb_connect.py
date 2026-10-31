@@ -40,18 +40,21 @@ for doc in find_results:
     print(doc)
 
 
+
+
+#   _id in the $group -- this id is not the mongodb default it,rather the id of the group, which is the country in this case
 # grp1 = [
 #     {
-#         "$group": {
-#             "_id": "$address.country",  # Field to group by
+#         "$group": {                                     -- this will group by country and then calculate the average price for each country
+#             "_id": "$address.country",  # Field to group by 
 #             "avg_price": {"$avg": "$price"}  # Field to avg
 #         }
 #     },
 #     {
-#         "$project": {
-#             "country": "$_id",
+#         "$project": {             -- this will project the fields we want to see in the output ( country and avg_proce in this case)
+#             "country": "$_id",    -- country will be the value of the _id field from the group stage which is "$address.country" here
 #             "avg_price": {"$toDouble": "$avg_price"},
-#             "_id": 0
+#             "_id": 0   -- this will remove the _id field from the output, as we don't need it in the final output ( 1 means include the field, 0                           means exclude the field)
 #         }
 #     }
 # ]
@@ -71,7 +74,8 @@ grp2 = [
             "country": "$_id.country",
             "city": "$_id.city",
             "avg_price": {"$toDouble": "$avg_price"},
-            "_id": 0
+            "_id": 0       #this will remove the _id field from the output, as we don't need it in the final output ( 1 means include the field, 
+                          #0 means exclude the field)
         }
     }
 ]
